@@ -6,7 +6,7 @@ import { AppContext } from "./store/context";
 function App() {
   const ctx = useContext(AppContext);
 
-  return <>{ctx.enterGame == null ? <Main /> : <GameBoardComponent />}</>;
+  return <>{!ctx.enterGameBoard ? <Main /> : <GameBoardComponent />}</>;
 }
 
 export default App;

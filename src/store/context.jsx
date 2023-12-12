@@ -3,14 +3,20 @@ import { createContext, useState } from "react";
 export const AppContext = createContext();
 
 const ContextProvider = (props) => {
-  const [enterGame, setenterGame] = useState(null);
+  const [enterGameBoard, setenterGameBoard] = useState(false);
   const [isX, setIsX] = useState(true);
+  const [enterCpuGame, setEnterCpuGame] = useState(false);
+  const [enterPlayerGame, setEnterPlayerGame] = useState(false);
 
   const contextValue = {
-    enterGame,
-    setenterGame,
+    enterGameBoard,
+    setenterGameBoard,
     isX,
     setIsX,
+    enterCpuGame,
+    setEnterCpuGame,
+    enterPlayerGame,
+    setEnterPlayerGame,
   };
   return (
     <AppContext.Provider value={contextValue}>

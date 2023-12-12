@@ -89,7 +89,7 @@ const ButtonGamePlayer = styled.button`
 `;
 
 const Main = () => {
-  const ctx = useContext(AppContext)
+  const ctx = useContext(AppContext);
 
   return (
     <ManuBox>
@@ -97,14 +97,24 @@ const Main = () => {
       <PickPlayerBox>
         <PickPlayerText>pick player 1's mark</PickPlayerText>
         <PlayerSignBox>
-          <SignBoxComponent/>
+          <SignBoxComponent />
         </PlayerSignBox>
         <RememberText>Remembr: x goes first</RememberText>
       </PickPlayerBox>
-      <ButtonGameCPU onClick={() => ctx.setenterGame(true)}>
+      <ButtonGameCPU
+        onClick={() => {
+          ctx.setEnterCpuGame(true);
+          ctx.setenterGameBoard(true);
+        }}
+      >
         NEW GAME (VS CPU)
       </ButtonGameCPU>
-      <ButtonGamePlayer onClick={() => ctx.setenterGame(false)}>
+      <ButtonGamePlayer
+        onClick={() => {
+          ctx.setEnterPlayerGame(true);
+          ctx.setenterGameBoard(true);
+        }}
+      >
         NEW GAME (VS PLAYER)
       </ButtonGamePlayer>
     </ManuBox>
