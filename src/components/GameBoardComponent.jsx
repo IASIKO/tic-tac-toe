@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import ScoreBoxComponent from "./UI/ScoreBoxComponent";
+import oFrame from "../assets/oFrame.svg";
+import oYellow from "../assets/oYellow.svg";
+import xFrame from "../assets/xFrame.svg";
+import xGreen from "../assets/xGreen.svg";
 
 const GameBoard = styled.div`
   grid-gap: 20px;
@@ -53,6 +57,13 @@ const MarkBox = styled.div`
   width: 140px;
   justify-content: center;
 `;
+const Thumb = styled.img`
+  display: none;
+
+  ${MarkBox}:hover & {
+    display: ${(props) => (props.$xIsExist ? "none" : "flex")};
+  }
+`;
 
 const XscoreBox = styled.div`
   background-color: #31c3bd;
@@ -75,6 +86,8 @@ const OscoreBox = styled.div`
   width: 100%;
 `;
 const GameBoardComponent = ({ enterGame, isX }) => {
+  const [xIsExist, setxIsExist] = useState(false);
+
   return (
     <GameBoard>
       <img src={logo} alt="logo" style={{ justifySelf: "start" }} />
@@ -107,15 +120,42 @@ const GameBoardComponent = ({ enterGame, isX }) => {
           ></path>
         </svg>
       </ButtonRestart>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
-      <MarkBox></MarkBox>
+      <MarkBox onClick={() => setxIsExist(true)}>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox >
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
+      <MarkBox>
+        {xIsExist && <img src={xGreen} alt="x sign green" />}
+        <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+      </MarkBox>
       <XscoreBox>
         <ScoreBoxComponent>
           {enterGame == true ? "x (you)" : "x (p1)"}
