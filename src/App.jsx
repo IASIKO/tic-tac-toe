@@ -1,20 +1,12 @@
-import { useState } from "react";
+import { useContext } from "react";
 import GameBoardComponent from "./components/GameBoardComponent";
 import Main from "./components/Main";
+import { AppContext } from "./store/context";
 
 function App() {
-  const [enterGame, setenterGame] = useState(null);
-  const [isX, setIsX] = useState(true);
+  const ctx = useContext(AppContext);
 
-  return (
-    <>
-      {enterGame == null ? (
-        <Main setenterGame={setenterGame} isX={isX} setIsX={setIsX} />
-      ) : (
-        <GameBoardComponent enterGame={enterGame} isX={isX} />
-      )}
-    </>
-  );
+  return <>{ctx.enterGame == null ? <Main /> : <GameBoardComponent />}</>;
 }
 
 export default App;

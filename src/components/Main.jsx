@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../assets/logo.svg";
 import styled from "styled-components";
 import SignBoxComponent from "./UI/SignBoxComponent";
+import { AppContext } from "../store/context";
 
 const ManuBox = styled.div`
   width: 460px;
@@ -87,21 +88,23 @@ const ButtonGamePlayer = styled.button`
   transition: all 0.2s;
 `;
 
-const Main = ({ setenterGame, isX, setIsX}) => {
+const Main = () => {
+  const ctx = useContext(AppContext)
+
   return (
     <ManuBox>
       <img src={logo} alt="logo" />
       <PickPlayerBox>
         <PickPlayerText>pick player 1's mark</PickPlayerText>
         <PlayerSignBox>
-          <SignBoxComponent isX={isX} setIsX={setIsX}/>
+          <SignBoxComponent/>
         </PlayerSignBox>
         <RememberText>Remembr: x goes first</RememberText>
       </PickPlayerBox>
-      <ButtonGameCPU onClick={() => setenterGame(true)}>
+      <ButtonGameCPU onClick={() => ctx.setenterGame(true)}>
         NEW GAME (VS CPU)
       </ButtonGameCPU>
-      <ButtonGamePlayer onClick={() => setenterGame(false)}>
+      <ButtonGamePlayer onClick={() => ctx.setenterGame(false)}>
         NEW GAME (VS PLAYER)
       </ButtonGamePlayer>
     </ManuBox>

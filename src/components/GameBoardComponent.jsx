@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import ScoreBoxComponent from "./UI/ScoreBoxComponent";
@@ -6,6 +6,7 @@ import oFrame from "../assets/oFrame.svg";
 import oYellow from "../assets/oYellow.svg";
 import xFrame from "../assets/xFrame.svg";
 import xGreen from "../assets/xGreen.svg";
+import { AppContext } from "../store/context";
 
 const GameBoard = styled.div`
   grid-gap: 20px;
@@ -85,9 +86,19 @@ const OscoreBox = styled.div`
   padding: 12px 0;
   width: 100%;
 `;
-const GameBoardComponent = ({ enterGame, isX }) => {
+
+const idArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const GameBoardComponent = () => {
+  const ctx = useContext(AppContext);
+
   const [xIsExist, setxIsExist] = useState(false);
   const [oIsExist, setoIsExist] = useState(false);
+
+  const addSignById = (id) => {
+    console.log("click", id);
+    ctx.setIsX(!ctx.isX);
+  };
 
   return (
     <GameBoard>
@@ -121,104 +132,21 @@ const GameBoardComponent = ({ enterGame, isX }) => {
           ></path>
         </svg>
       </ButtonRestart>
-      <MarkBox
-        onClick={() => {
-          setxIsExist(true);
-          setoIsExist(true);
-        }}
-      >
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
-      <MarkBox>
-        {isX
-          ? xIsExist && <img src={xGreen} alt="x sign green" />
-          : oIsExist && <img src={oYellow} alt="x sign green" />}
-        {isX ? (
-          <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-        ) : (
-          <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-        )}
-      </MarkBox>
+      {idArr.map((box) => (
+        <MarkBox onClick={() => addSignById(box)} key={box}>
+          {ctx.isX
+            ? xIsExist && <img src={xGreen} alt="x sign green" />
+            : oIsExist && <img src={oYellow} alt="x sign green" />}
+          {ctx.isX ? (
+            <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
+          ) : (
+            <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
+          )}
+        </MarkBox>
+      ))}
       <XscoreBox>
         <ScoreBoxComponent>
-          {enterGame == true ? "x (you)" : "x (p1)"}
+          {ctx.enterGame == true ? "x (you)" : "x (p1)"}
         </ScoreBoxComponent>
       </XscoreBox>
       <TiesScoreBox>
@@ -226,7 +154,7 @@ const GameBoardComponent = ({ enterGame, isX }) => {
       </TiesScoreBox>
       <OscoreBox>
         <ScoreBoxComponent>
-          {enterGame == true ? "o (cpu)" : "x (p2)"}
+          {ctx.enterGame == true ? "o (cpu)" : "x (p2)"}
         </ScoreBoxComponent>
       </OscoreBox>
     </GameBoard>
