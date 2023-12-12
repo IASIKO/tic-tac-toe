@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import ScoreBoxComponent from "./UI/ScoreBoxComponent";
@@ -62,7 +62,7 @@ const Thumb = styled.img`
   display: none;
 
   ${MarkBox}:hover & {
-    display: ${(props) => (props.$xIsExist ? "none" : "flex")};
+    display: flex;
   }
 `;
 
@@ -87,32 +87,58 @@ const OscoreBox = styled.div`
   width: 100%;
 `;
 
-const idArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-const PLAYER_X = <img src={xGreen} alt="x sign green" />;
-const PLAYER_O = <img src={oYellow} alt="x sign green" />;
+const defaultArr = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
 
 const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
-  const [xIsExist, setxIsExist] = useState(false);
-  const [tiles, setTiles] = useState(Array(9).fill(null));
-  const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
+  const [tiles, setTiles] = useState(defaultArr);
+  const [playerTurn, setPlayerTurn] = useState("X");
 
-  const handleTileClick = (index) => {
-    if (tiles[index] !== null) {
+  const handleTileClick = (x, y) => {
+    if (tiles[x][y] !== null) {
       return;
     }
 
-    const newTiles = [...tiles];
-    newTiles[index] = playerTurn;
-    setTiles(newTiles);
-    if (playerTurn === PLAYER_X) {
-      setPlayerTurn(PLAYER_O);
+    const newArr = [...tiles];
+    newArr[x][y] = playerTurn;
+    setTiles(newArr);
+    if (playerTurn === "X") {
+      setPlayerTurn("O");
     } else {
-      setPlayerTurn(PLAYER_X);
+      setPlayerTurn("X");
     }
-    ctx.setIsX(!ctx.isX);
   };
+
+  useEffect(() => {
+    const signsArr = ["X", "O"];
+
+    signsArr.forEach((sign) => {
+      tiles.forEach((tile, x) => {
+        if (tile.every((memb) => memb == sign)) {
+          console.log("win");
+        }
+      });
+
+      let yTiles = [];
+
+      for (let a = 0; a < tiles[0].length; a++) {
+        yTiles[a] = [];
+        for (let b = 0; b < tiles[0].length; b++) {
+          yTiles[a][b] = tiles[b][a];
+        }
+      }
+      yTiles.forEach((tile, x) => {
+        if (tile.every((memb) => memb == sign)) {
+          console.log("win y");
+        }
+      });
+    });
+  }, [tiles]);
 
   return (
     <GameBoard>
@@ -146,28 +172,23 @@ const GameBoardComponent = () => {
           ></path>
         </svg>
       </ButtonRestart>
-      {idArr.map((box) => (
-        <MarkBox onClick={() => handleTileClick(box)} key={box}>
-          {tiles[box]}
-          {ctx.isX
-            ? tiles[box] == null &&
-              playerTurn != null && (
-                <Thumb
-                  src={xFrame}
-                  alt="x sign frame"
-                  $xIsExist={xIsExist}
-                ></Thumb>
+      {tiles.map((box, x) =>
+        box.map((_, y) => (
+          <MarkBox onClick={() => handleTileClick(x, y)} key={y}>
+            {tiles[x][y] !== null ? (
+              tiles[x][y] === "X" ? (
+                <img src={xGreen} alt="x sign green" />
+              ) : (
+                <img src={oYellow} alt="x sign green" />
               )
-            : tiles[box] == null &&
-              playerTurn != null && (
-                <Thumb
-                  src={oFrame}
-                  alt="0 sign frame"
-                  $xIsExist={xIsExist}
-                ></Thumb>
-              )}
-        </MarkBox>
-      ))}
+            ) : playerTurn == "X" ? (
+              <Thumb src={xFrame} alt="x sign frame"></Thumb>
+            ) : (
+              <Thumb src={oFrame} alt="0 sign frame"></Thumb>
+            )}
+          </MarkBox>
+        ))
+      )}
       <XscoreBox>
         <ScoreBoxComponent>
           {ctx.enterCpuGame ? "x (you)" : "x (p1)"}
