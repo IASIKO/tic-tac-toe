@@ -87,16 +87,30 @@ const OscoreBox = styled.div`
   width: 100%;
 `;
 
-const idArr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const idArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+const PLAYER_X = <img src={xGreen} alt="x sign green" />;
+const PLAYER_O = <img src={oYellow} alt="x sign green" />;
 
 const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
   const [xIsExist, setxIsExist] = useState(false);
-  const [oIsExist, setoIsExist] = useState(false);
+  const [tiles, setTiles] = useState(Array(9).fill(null));
+  const [playerTurn, setPlayerTurn] = useState(PLAYER_X);
 
-  const addSignById = (id) => {
-    console.log("click", id);
+  const handleTileClick = (index) => {
+    if (tiles[index] !== null) {
+      return;
+    }
+
+    const newTiles = [...tiles];
+    newTiles[index] = playerTurn;
+    setTiles(newTiles);
+    if (playerTurn === PLAYER_X) {
+      setPlayerTurn(PLAYER_O);
+    } else {
+      setPlayerTurn(PLAYER_X);
+    }
     ctx.setIsX(!ctx.isX);
   };
 
@@ -133,15 +147,25 @@ const GameBoardComponent = () => {
         </svg>
       </ButtonRestart>
       {idArr.map((box) => (
-        <MarkBox onClick={() => addSignById(box)} key={box}>
+        <MarkBox onClick={() => handleTileClick(box)} key={box}>
+          {tiles[box]}
           {ctx.isX
-            ? xIsExist && <img src={xGreen} alt="x sign green" />
-            : oIsExist && <img src={oYellow} alt="x sign green" />}
-          {ctx.isX ? (
-            <Thumb src={xFrame} alt="x sign frame" $xIsExist={xIsExist}></Thumb>
-          ) : (
-            <Thumb src={oFrame} alt="0 sign frame" $xIsExist={xIsExist}></Thumb>
-          )}
+            ? tiles[box] == null &&
+              playerTurn != null && (
+                <Thumb
+                  src={xFrame}
+                  alt="x sign frame"
+                  $xIsExist={xIsExist}
+                ></Thumb>
+              )
+            : tiles[box] == null &&
+              playerTurn != null && (
+                <Thumb
+                  src={oFrame}
+                  alt="0 sign frame"
+                  $xIsExist={xIsExist}
+                ></Thumb>
+              )}
         </MarkBox>
       ))}
       <XscoreBox>
