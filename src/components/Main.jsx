@@ -111,7 +111,6 @@ const Main = () => {
       </ButtonGameCPU>
       <ButtonGamePlayer
         onClick={() => {
-          ctx.setEnterPlayerGame(true);
           ctx.setenterGameBoard(true);
         }}
       >

@@ -16,6 +16,9 @@ const SignBox = styled.div`
     background-color: ${(props) =>
       props.$primary ? "" : "rgba(168,191,201,.05)"};
   }
+  &:active {
+    scale: 0.96;
+  }
 `;
 
 const SignBoxComponent = () => {
