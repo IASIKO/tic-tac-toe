@@ -123,10 +123,10 @@ const GameBoardComponent = () => {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
           if (sign === "X") {
-            ctx.setScoreX((prev) => prev + 1);
+            ctx.setScoreX(ctx.scoreX + 1);
           }
           if (sign === "O") {
-            ctx.setScoreO((prev) => prev + 1);
+            ctx.setScoreO(ctx.scoreO + 1);
           }
         }
       });
@@ -139,10 +139,16 @@ const GameBoardComponent = () => {
           yTiles[a][b] = ctx.tiles[b][a];
         }
       }
-      yTiles.forEach((tile, x) => {
+      yTiles.forEach((tile) => {
         if (tile.every((memb) => memb == sign)) {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
+          if (sign === "X") {
+            ctx.setScoreX(ctx.scoreX + 1);
+          }
+          if (sign === "O") {
+            ctx.setScoreO(ctx.scoreO + 1);
+          }
         }
       });
     });

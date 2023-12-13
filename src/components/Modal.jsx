@@ -114,6 +114,12 @@ const Modal = () => {
     ctx.setIsX(true);
   };
 
+  const resetScore = () => {
+    ctx.setScoreX(0);
+    ctx.setScoreO(0);
+    ctx.setScoreT(0);
+  };
+
   return (
     <ModalWindow>
       <ModalTextBox>
@@ -153,6 +159,7 @@ const Modal = () => {
             <GreyButton
               onClick={() => {
                 ctx.setenterGameBoard(false);
+                resetScore();
                 newGameFunc();
               }}
             >
