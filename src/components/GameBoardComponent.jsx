@@ -112,6 +112,7 @@ const GameBoardComponent = () => {
       ctx.tiles.forEach((tile, x) => {
         if (tile.every((memb) => memb == sign)) {
           console.log("win");
+          ctx.setIsModal(true);
         }
       });
 
@@ -126,6 +127,7 @@ const GameBoardComponent = () => {
       yTiles.forEach((tile, x) => {
         if (tile.every((memb) => memb == sign)) {
           console.log("win y");
+          ctx.setIsModal(true);
         }
       });
     });
@@ -155,7 +157,12 @@ const GameBoardComponent = () => {
         </svg>
         <PlayerTurnText>turn</PlayerTurnText>
       </PlayerTurnBox>
-      <ButtonRestart onClick={() => ctx.setRestarted(true)}>
+      <ButtonRestart
+        onClick={() => {
+          ctx.setIsModal(true);
+          ctx.setRestarted(true);
+        }}
+      >
         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
           <path
             fill="#1f3641"

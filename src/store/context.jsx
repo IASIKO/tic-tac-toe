@@ -13,9 +13,10 @@ const ContextProvider = (props) => {
   const [isX, setIsX] = useState(true);
   const [enterCpuGame, setEnterCpuGame] = useState(false);
   const [enterPlayerGame, setEnterPlayerGame] = useState(false);
-  const [restarted, setRestarted] = useState(false);
   const [tiles, setTiles] = useState(defaultArr);
   const [playerTurn, setPlayerTurn] = useState("X");
+  const [isModal, setIsModal] = useState(false);
+  const [restarted, setRestarted] = useState(false);
 
   const contextValue = {
     enterGameBoard,
@@ -26,13 +27,15 @@ const ContextProvider = (props) => {
     setEnterCpuGame,
     enterPlayerGame,
     setEnterPlayerGame,
-    restarted,
-    setRestarted,
     tiles,
     setTiles,
     playerTurn,
     setPlayerTurn,
     defaultArr,
+    restarted,
+    setRestarted,
+    isModal,
+    setIsModal,
   };
   return (
     <AppContext.Provider value={contextValue}>

@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       {ctx.enterGameBoard ? <GameBoardComponent /> : <Main />}
-      {ctx.restarted && <Modal />}
+      {ctx.isModal && <Modal />}
     </>
   );
 }

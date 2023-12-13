@@ -73,25 +73,85 @@ const YellowButton = styled.button`
   transition: all 0.2s;
 `;
 
+const ModalResultText = styled.p`
+  color: #a8bfc9;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const ModalWinnerBox = styled.div`
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 15px 0 20px;
+`;
+
+const ModalWinnerText = styled.p`
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #31c3bd;
+`;
+
 const Modal = () => {
   const ctx = useContext(AppContext);
 
   return (
     <ModalWindow>
       <ModalTextBox>
-        <ModalRestartText>Restart game?</ModalRestartText>
-        <GreyButton onClick={() => ctx.setRestarted(false)}>
-          NO, CANCEL
-        </GreyButton>
-        <YellowButton
-          onClick={() => {
-            ctx.setTiles(ctx.defaultArr);
-            ctx.setPlayerTurn("X");
-            ctx.setRestarted(false);
-          }}
-        >
-          YES, RESTART
-        </YellowButton>
+        {ctx.restarted ? (
+          <>
+            <ModalRestartText>Restart game?</ModalRestartText>
+            <GreyButton
+              onClick={() => {
+                ctx.setRestarted(false);
+                ctx.setIsModal(false);
+              }}
+            >
+              NO, CANCEL
+            </GreyButton>
+            <YellowButton
+              onClick={() => {
+                ctx.setTiles(ctx.defaultArr);
+                ctx.setPlayerTurn("X");
+                ctx.setRestarted(false);
+                ctx.setIsModal(false);
+              }}
+            >
+              YES, RESTART
+            </YellowButton>
+          </>
+        ) : (
+          <>
+            <ModalResultText>player 1 wins!</ModalResultText>
+            <ModalWinnerBox>
+              <ModalWinnerText>takes the round</ModalWinnerText>
+            </ModalWinnerBox>
+            <GreyButton
+              onClick={() => {
+                ctx.setRestarted(false);
+                ctx.setIsModal(false);
+              }}
+            >
+              QUIT
+            </GreyButton>
+            <YellowButton
+              onClick={() => {
+                ctx.setTiles(ctx.defaultArr);
+                ctx.setPlayerTurn("X");
+                ctx.setRestarted(false);
+                ctx.setIsModal(false);
+              }}
+            >
+              Next ROUND
+            </YellowButton>
+          </>
+        )}
       </ModalTextBox>
       <ModalBackGround></ModalBackGround>
     </ModalWindow>
