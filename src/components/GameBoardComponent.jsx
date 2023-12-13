@@ -87,6 +87,15 @@ const OscoreBox = styled.div`
   width: 100%;
 `;
 
+const Score = styled.p`
+  color: #1a2a33;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+`;
+
 const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
@@ -113,6 +122,12 @@ const GameBoardComponent = () => {
         if (tile.every((memb) => memb == sign)) {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
+          if (sign === "X") {
+            ctx.setScoreX((prev) => prev + 1);
+          }
+          if (sign === "O") {
+            ctx.setScoreO((prev) => prev + 1);
+          }
         }
       });
 
@@ -191,14 +206,17 @@ const GameBoardComponent = () => {
         <ScoreBoxComponent>
           {ctx.enterCpuGame ? "x (you)" : "x (p1)"}
         </ScoreBoxComponent>
+        <Score>{ctx.scoreX}</Score>
       </XscoreBox>
       <TiesScoreBox>
         <ScoreBoxComponent>ties</ScoreBoxComponent>
+        <Score>{ctx.scoreT}</Score>
       </TiesScoreBox>
       <OscoreBox>
         <ScoreBoxComponent>
-          {ctx.enterCpuGame ? "o (cpu)" : "x (p2)"}
+          {ctx.enterCpuGame ? "o (cpu)" : "o (p2)"}
         </ScoreBoxComponent>
+        <Score>{ctx.scoreO}</Score>
       </OscoreBox>
     </GameBoard>
   );

@@ -111,6 +111,7 @@ const Modal = () => {
     ctx.setIsModal(false);
     ctx.setTiles(ctx.defaultArr);
     ctx.setPlayerTurn("X");
+    ctx.setIsX(true);
   };
 
   return (
@@ -157,7 +158,13 @@ const Modal = () => {
             >
               QUIT
             </GreyButton>
-            <YellowButton>NEXT ROUND</YellowButton>
+            <YellowButton
+              onClick={() => {
+                newGameFunc();
+              }}
+            >
+              NEXT ROUND
+            </YellowButton>
           </>
         )}
       </ModalTextBox>

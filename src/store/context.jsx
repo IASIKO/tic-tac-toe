@@ -18,6 +18,9 @@ const ContextProvider = (props) => {
   const [isModal, setIsModal] = useState(false);
   const [restarted, setRestarted] = useState(false);
   const [winner, setWinner] = useState(null);
+  const [scoreX, setScoreX] = useState(0);
+  const [scoreO, setScoreO] = useState(0);
+  const [scoreT, setScoreT] = useState(0);
 
   const contextValue = {
     enterGameBoard,
@@ -39,6 +42,12 @@ const ContextProvider = (props) => {
     setIsModal,
     winner,
     setWinner,
+    scoreX,
+    setScoreX,
+    scoreO,
+    setScoreO,
+    scoreT,
+    setScoreT,
   };
   return (
     <AppContext.Provider value={contextValue}>
