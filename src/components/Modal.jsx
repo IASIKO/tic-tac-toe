@@ -132,24 +132,8 @@ const Modal = () => {
             <ModalWinnerBox>
               <ModalWinnerText>takes the round</ModalWinnerText>
             </ModalWinnerBox>
-            <GreyButton
-              onClick={() => {
-                ctx.setRestarted(false);
-                ctx.setIsModal(false);
-              }}
-            >
-              QUIT
-            </GreyButton>
-            <YellowButton
-              onClick={() => {
-                ctx.setTiles(ctx.defaultArr);
-                ctx.setPlayerTurn("X");
-                ctx.setRestarted(false);
-                ctx.setIsModal(false);
-              }}
-            >
-              Next ROUND
-            </YellowButton>
+            <GreyButton>QUIT</GreyButton>
+            <YellowButton>NEXT ROUND</YellowButton>
           </>
         )}
       </ModalTextBox>
