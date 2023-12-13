@@ -7,6 +7,7 @@ const ContextProvider = (props) => {
   const [isX, setIsX] = useState(true);
   const [enterCpuGame, setEnterCpuGame] = useState(false);
   const [enterPlayerGame, setEnterPlayerGame] = useState(false);
+  const [restarted, setRestarted] = useState(false)
 
   const contextValue = {
     enterGameBoard,
@@ -17,6 +18,8 @@ const ContextProvider = (props) => {
     setEnterCpuGame,
     enterPlayerGame,
     setEnterPlayerGame,
+    restarted,
+    setRestarted
   };
   return (
     <AppContext.Provider value={contextValue}>

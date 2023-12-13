@@ -164,7 +164,7 @@ const GameBoardComponent = () => {
         </svg>
         <PlayerTurnText>turn</PlayerTurnText>
       </PlayerTurnBox>
-      <ButtonRestart>
+      <ButtonRestart onClick={() => ctx.setRestarted(true)}>
         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
           <path
             fill="#1f3641"
