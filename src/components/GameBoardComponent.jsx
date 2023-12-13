@@ -87,30 +87,24 @@ const OscoreBox = styled.div`
   width: 100%;
 `;
 
-const defaultArr = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+
 
 const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
-  const [tiles, setTiles] = useState(defaultArr);
-  const [playerTurn, setPlayerTurn] = useState("X");
 
   const handleTileClick = (x, y) => {
-    if (tiles[x][y] !== null) {
+    if (ctx.tiles[x][y] !== null) {
       return;
     }
 
-    const newArr = [...tiles];
-    newArr[x][y] = playerTurn;
-    setTiles(newArr);
-    if (playerTurn === "X") {
-      setPlayerTurn("O");
+    const newArr = [...ctx.tiles];
+    newArr[x][y] = ctx.playerTurn;
+    ctx.setTiles(newArr);
+    if (ctx.playerTurn === "X") {
+      ctx.setPlayerTurn("O");
     } else {
-      setPlayerTurn("X");
+      ctx.setPlayerTurn("X");
     }
   };
 
@@ -118,7 +112,7 @@ const GameBoardComponent = () => {
     const signsArr = ["X", "O"];
 
     signsArr.forEach((sign) => {
-      tiles.forEach((tile, x) => {
+      ctx.tiles.forEach((tile, x) => {
         if (tile.every((memb) => memb == sign)) {
           console.log("win");
         }
@@ -126,10 +120,10 @@ const GameBoardComponent = () => {
 
       let yTiles = [];
 
-      for (let a = 0; a < tiles[0].length; a++) {
+      for (let a = 0; a < ctx.tiles[0].length; a++) {
         yTiles[a] = [];
-        for (let b = 0; b < tiles[0].length; b++) {
-          yTiles[a][b] = tiles[b][a];
+        for (let b = 0; b < ctx.tiles[0].length; b++) {
+          yTiles[a][b] = ctx.tiles[b][a];
         }
       }
       yTiles.forEach((tile, x) => {
@@ -138,7 +132,7 @@ const GameBoardComponent = () => {
         }
       });
     });
-  }, [tiles]);
+  }, [ctx.tiles]);
 
   return (
     <GameBoard>
@@ -172,16 +166,16 @@ const GameBoardComponent = () => {
           ></path>
         </svg>
       </ButtonRestart>
-      {tiles.map((box, x) =>
+      {ctx.tiles.map((box, x) =>
         box.map((_, y) => (
           <MarkBox onClick={() => handleTileClick(x, y)} key={y}>
-            {tiles[x][y] !== null ? (
-              tiles[x][y] === "X" ? (
+            {ctx.tiles[x][y] !== null ? (
+              ctx.tiles[x][y] === "X" ? (
                 <img src={xGreen} alt="x sign green" />
               ) : (
                 <img src={oYellow} alt="x sign green" />
               )
-            ) : playerTurn == "X" ? (
+            ) : ctx.playerTurn == "X" ? (
               <Thumb src={xFrame} alt="x sign frame"></Thumb>
             ) : (
               <Thumb src={oFrame} alt="0 sign frame"></Thumb>

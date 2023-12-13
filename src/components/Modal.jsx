@@ -83,7 +83,15 @@ const Modal = () => {
         <GreyButton onClick={() => ctx.setRestarted(false)}>
           NO, CANCEL
         </GreyButton>
-        <YellowButton>YES, RESTART</YellowButton>
+        <YellowButton
+          onClick={() => {
+            ctx.setTiles(ctx.defaultArr);
+            ctx.setPlayerTurn("X");
+            ctx.setRestarted(false);
+          }}
+        >
+          YES, RESTART
+        </YellowButton>
       </ModalTextBox>
       <ModalBackGround></ModalBackGround>
     </ModalWindow>
