@@ -109,10 +109,10 @@ const GameBoardComponent = () => {
     const signsArr = ["X", "O"];
 
     signsArr.forEach((sign) => {
-      ctx.tiles.forEach((tile, x) => {
+      ctx.tiles.forEach((tile) => {
         if (tile.every((memb) => memb == sign)) {
-          console.log("win");
           ctx.setIsModal(true);
+          ctx.setWinner(sign);
         }
       });
 
@@ -126,8 +126,8 @@ const GameBoardComponent = () => {
       }
       yTiles.forEach((tile, x) => {
         if (tile.every((memb) => memb == sign)) {
-          console.log("win y");
           ctx.setIsModal(true);
+          ctx.setWinner(sign);
         }
       });
     });

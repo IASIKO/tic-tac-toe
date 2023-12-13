@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { AppContext } from "../store/context";
+import xGreen from "../assets/xGreen.svg";
+import oYellow from "../assets/oYellow.svg";
 
 const ModalWindow = styled.div`
   height: 100vh;
@@ -98,8 +100,18 @@ const ModalWinnerText = styled.p`
   color: #31c3bd;
 `;
 
+const WinnerImg = styled.img`
+  display: block;
+`;
+
 const Modal = () => {
   const ctx = useContext(AppContext);
+
+  const newGameFunc = () => {
+    ctx.setIsModal(false);
+    ctx.setTiles(ctx.defaultArr);
+    ctx.setPlayerTurn("X");
+  };
 
   return (
     <ModalWindow>
@@ -117,10 +129,8 @@ const Modal = () => {
             </GreyButton>
             <YellowButton
               onClick={() => {
-                ctx.setTiles(ctx.defaultArr);
-                ctx.setPlayerTurn("X");
                 ctx.setRestarted(false);
-                ctx.setIsModal(false);
+                newGameFunc();
               }}
             >
               YES, RESTART
@@ -128,11 +138,25 @@ const Modal = () => {
           </>
         ) : (
           <>
-            <ModalResultText>player 1 wins!</ModalResultText>
+            <ModalResultText>
+              player {ctx.winner === "X" ? 1 : 2} wins!
+            </ModalResultText>
             <ModalWinnerBox>
+              {ctx.winner === "X" ? (
+                <WinnerImg src={xGreen} />
+              ) : (
+                <WinnerImg src={oYellow} />
+              )}
               <ModalWinnerText>takes the round</ModalWinnerText>
             </ModalWinnerBox>
-            <GreyButton>QUIT</GreyButton>
+            <GreyButton
+              onClick={() => {
+                ctx.setenterGameBoard(false);
+                newGameFunc();
+              }}
+            >
+              QUIT
+            </GreyButton>
             <YellowButton>NEXT ROUND</YellowButton>
           </>
         )}

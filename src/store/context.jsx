@@ -17,6 +17,7 @@ const ContextProvider = (props) => {
   const [playerTurn, setPlayerTurn] = useState("X");
   const [isModal, setIsModal] = useState(false);
   const [restarted, setRestarted] = useState(false);
+  const [winner, setWinner] = useState(null);
 
   const contextValue = {
     enterGameBoard,
@@ -36,6 +37,8 @@ const ContextProvider = (props) => {
     setRestarted,
     isModal,
     setIsModal,
+    winner,
+    setWinner,
   };
   return (
     <AppContext.Provider value={contextValue}>
