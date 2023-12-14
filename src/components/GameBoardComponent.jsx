@@ -131,21 +131,6 @@ const GameBoardComponent = () => {
         }
       });
 
-      let isTilesFull = true;
-
-      for (let i = 0; i < ctx.tiles.length; i++) {
-        for (let j = 0; j < ctx.tiles[i].length; j++) {
-          if (ctx.tiles[i][j] === null) {
-            isTilesFull = false;
-          }
-        }
-      }
-      if (isTilesFull) {
-        ctx.setWinner("T");
-        ctx.setScoreT(ctx.scoreT + 1);
-        ctx.setIsModal(true);
-      }
-
       let yTiles = [];
 
       for (let a = 0; a < ctx.tiles[0].length; a++) {
@@ -166,6 +151,22 @@ const GameBoardComponent = () => {
           }
         }
       });
+
+      let isTilesFull = true;
+
+      for (let i = 0; i < ctx.tiles.length; i++) {
+        for (let j = 0; j < ctx.tiles[i].length; j++) {
+          if (ctx.tiles[i][j] === null) {
+            isTilesFull = false;
+          }
+        }
+      }
+
+      if (isTilesFull) {
+        ctx.setIsModal(true);
+        ctx.setWinner("T");
+        ctx.setScoreT(ctx.scoreT + 1);
+      }
     });
   }, [ctx.tiles]);
 
