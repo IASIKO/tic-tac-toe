@@ -92,12 +92,19 @@ const ModalWinnerBox = styled.div`
   margin: 15px 0 20px;
 `;
 
+const ModalTieText = styled.p`
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #a8bfc9;
+`;
 const ModalWinnerText = styled.p`
   font-size: 40px;
   font-weight: 700;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #31c3bd;
+  color: ${(props) => (props.$primary ? "#31c3bd" : "#ffc860")};
 `;
 
 const WinnerImg = styled.img`
@@ -146,15 +153,19 @@ const Modal = () => {
         ) : (
           <>
             <ModalResultText>
-              player {ctx.winner === "X" ? 1 : 2} wins!
+              {ctx.winner !== "T" &&
+                `player ${ctx.winner === "X" ? 1 : 2} wins!`}
             </ModalResultText>
             <ModalWinnerBox>
-              {ctx.winner === "X" ? (
-                <WinnerImg src={xGreen} />
+              {ctx.winner === "X" && <WinnerImg src={xGreen} />}
+              {ctx.winner === "O" && <WinnerImg src={oYellow} />}
+              {ctx.winner === "T" ? (
+                <ModalTieText>ROUND TIED</ModalTieText>
               ) : (
-                <WinnerImg src={oYellow} />
+                <ModalWinnerText $primary={ctx.winner === "X"}>
+                  takes the round
+                </ModalWinnerText>
               )}
-              <ModalWinnerText>takes the round</ModalWinnerText>
             </ModalWinnerBox>
             <GreyButton
               onClick={() => {
