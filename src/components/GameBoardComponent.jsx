@@ -114,6 +114,8 @@ const GameBoardComponent = () => {
     }
   };
 
+  const makeRandomMove = () => {};
+
   useEffect(() => {
     const signsArr = ["X", "O"];
 
@@ -146,6 +148,28 @@ const GameBoardComponent = () => {
         ctx.tiles[0][0] === sign &&
         ctx.tiles[1][1] == sign &&
         ctx.tiles[2][2] == sign &&
+        sign === "O"
+      ) {
+        ctx.setScoreO(ctx.scoreO + 1);
+        ctx.setIsModal(true);
+        ctx.setWinner("O");
+      }
+
+      if (
+        ctx.tiles[0][2] === sign &&
+        ctx.tiles[1][1] == sign &&
+        ctx.tiles[2][0] == sign &&
+        sign === "X"
+      ) {
+        ctx.setScoreX(ctx.scoreX + 1);
+        ctx.setIsModal(true);
+        ctx.setWinner("X");
+      }
+
+      if (
+        ctx.tiles[0][2] === sign &&
+        ctx.tiles[1][1] == sign &&
+        ctx.tiles[2][0] == sign &&
         sign === "O"
       ) {
         ctx.setScoreO(ctx.scoreO + 1);
@@ -190,6 +214,10 @@ const GameBoardComponent = () => {
         ctx.setScoreT(ctx.scoreT + 1);
       }
     });
+
+    if (ctx.enterCpuGame && !ctx.isModal && ctx.playerTurn === "O") {
+      makeRandomMove();
+    }
   }, [ctx.tiles]);
 
   return (
