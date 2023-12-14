@@ -131,6 +131,28 @@ const GameBoardComponent = () => {
         }
       });
 
+      if (
+        ctx.tiles[0][0] === sign &&
+        ctx.tiles[1][1] == sign &&
+        ctx.tiles[2][2] == sign &&
+        sign === "X"
+      ) {
+        ctx.setScoreX(ctx.scoreX + 1);
+        ctx.setIsModal(true);
+        ctx.setWinner("X");
+      }
+
+      if (
+        ctx.tiles[0][0] === sign &&
+        ctx.tiles[1][1] == sign &&
+        ctx.tiles[2][2] == sign &&
+        sign === "O"
+      ) {
+        ctx.setScoreO(ctx.scoreO + 1);
+        ctx.setIsModal(true);
+        ctx.setWinner("O");
+      }
+
       let yTiles = [];
 
       for (let a = 0; a < ctx.tiles[0].length; a++) {
