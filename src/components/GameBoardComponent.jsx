@@ -58,6 +58,7 @@ const MarkBox = styled.div`
   width: 140px;
   justify-content: center;
 `;
+
 const Thumb = styled.img`
   display: none;
 
@@ -120,10 +121,11 @@ const GameBoardComponent = () => {
     const signsArr = ["X", "O"];
 
     signsArr.forEach((sign) => {
-      ctx.tiles.forEach((tile) => {
+      ctx.tiles.forEach((tile, x) => {
         if (tile.every((memb) => memb == sign)) {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
+          ctx.setWinComb(x);
           if (sign === "X") {
             ctx.setScoreX(ctx.scoreX + 1);
           }
@@ -259,12 +261,34 @@ const GameBoardComponent = () => {
       </ButtonRestart>
       {ctx.tiles.map((box, x) =>
         box.map((_, y) => (
-          <MarkBox onClick={() => handleTileClick(x, y)} key={y}>
+          <MarkBox
+            onClick={() => handleTileClick(x, y)}
+            key={y}
+            style={{
+              backgroundColor: ctx.winComb == x && "#31c3bd",
+            }}
+          >
             {ctx.tiles[x][y] !== null ? (
               ctx.tiles[x][y] === "X" ? (
-                <img src={xGreen} alt="x sign green" />
+                <img
+                  src={xGreen}
+                  alt="x sign green"
+                  style={{
+                    filter:
+                      ctx.winComb == x &&
+                      "brightness(0) saturate(1) opacity(.8)",
+                  }}
+                />
               ) : (
-                <img src={oYellow} alt="x sign green" />
+                <img
+                  src={oYellow}
+                  alt="x sign green"
+                  style={{
+                    filter:
+                      ctx.winComb == x &&
+                      "brightness(0) saturate(1) opacity(.8)",
+                  }}
+                />
               )
             ) : ctx.playerTurn == "X" ? (
               <Thumb src={xFrame} alt="x sign frame"></Thumb>

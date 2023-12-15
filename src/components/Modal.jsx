@@ -119,6 +119,7 @@ const Modal = () => {
     ctx.setTiles(ctx.defaultArr);
     ctx.setPlayerTurn("X");
     ctx.setIsX(true);
+    ctx.setWinComb(null);
   };
 
   const resetScore = () => {
