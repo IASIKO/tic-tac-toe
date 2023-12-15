@@ -265,7 +265,9 @@ const GameBoardComponent = () => {
             onClick={() => handleTileClick(x, y)}
             key={y}
             style={{
-              backgroundColor: ctx.winComb == x && "#31c3bd",
+              backgroundColor:
+                ctx.winComb == x &&
+                `${ctx.winner === "X" ? "#31c3bd" : "#f2b137"} `,
             }}
           >
             {ctx.tiles[x][y] !== null ? (
