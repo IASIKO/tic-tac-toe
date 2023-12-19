@@ -144,6 +144,7 @@ const GameBoardComponent = () => {
         ctx.setScoreX(ctx.scoreX + 1);
         ctx.setIsModal(true);
         ctx.setWinner("X");
+        ctx.setWinComb("leftDiagonal");
       }
 
       if (
@@ -155,6 +156,7 @@ const GameBoardComponent = () => {
         ctx.setScoreO(ctx.scoreO + 1);
         ctx.setIsModal(true);
         ctx.setWinner("O");
+        ctx.setWinComb("leftDiagonal");
       }
 
       if (
@@ -166,6 +168,7 @@ const GameBoardComponent = () => {
         ctx.setScoreX(ctx.scoreX + 1);
         ctx.setIsModal(true);
         ctx.setWinner("X");
+        ctx.setWinComb("rightDiagonal");
       }
 
       if (
@@ -177,20 +180,18 @@ const GameBoardComponent = () => {
         ctx.setScoreO(ctx.scoreO + 1);
         ctx.setIsModal(true);
         ctx.setWinner("O");
+        ctx.setWinComb("rightDiagonal");
       }
 
-      let yTiles = [];
-
-      for (let a = 0; a < ctx.tiles[0].length; a++) {
-        yTiles[a] = [];
-        for (let b = 0; b < ctx.tiles[0].length; b++) {
-          yTiles[a][b] = ctx.tiles[b][a];
-        }
-      }
-      yTiles.forEach((tile) => {
-        if (tile.every((memb) => memb == sign)) {
+      for (let i = 0; i < ctx.tiles.length; i++) {
+        if (
+          ctx.tiles[0][i] === sign &&
+          ctx.tiles[1][i] === sign &&
+          ctx.tiles[2][i] === sign
+        ) {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
+          ctx.setWinComb(`vertical${i}`);
           if (sign === "X") {
             ctx.setScoreX(ctx.scoreX + 1);
           }
@@ -198,7 +199,7 @@ const GameBoardComponent = () => {
             ctx.setScoreO(ctx.scoreO + 1);
           }
         }
-      });
+      }
 
       let isTilesFull = true;
 
@@ -266,8 +267,31 @@ const GameBoardComponent = () => {
             key={y}
             style={{
               backgroundColor:
-                ctx.winComb == x &&
-                `${ctx.winner === "X" ? "#31c3bd" : "#f2b137"} `,
+                (ctx.winComb === x && ctx.winner === "X") ||
+                (ctx.winComb === "leftDiagonal" &&
+                  x === y &&
+                  ctx.winner === "X") ||
+                (ctx.winComb === "rightDiagonal" &&
+                  x + y === 2 &&
+                  ctx.winner === "X") ||
+                (ctx.winComb === `vertical${y}` &&
+                  ctx.tiles[0][y] === "X" &&
+                  ctx.tiles[1][y] === "X" &&
+                  ctx.tiles[2][y] === "X")
+                  ? "#31c3bd"
+                  : (ctx.winComb === x && ctx.winner === "O") ||
+                    (ctx.winComb === "leftDiagonal" &&
+                      x === y &&
+                      ctx.winner === "O") ||
+                    (ctx.winComb === "rightDiagonal" &&
+                      x + y === 2 &&
+                      ctx.winner === "O") ||
+                    (ctx.winComb === `vertical${y}` &&
+                      ctx.tiles[0][y] === "O" &&
+                      ctx.tiles[1][y] === "O" &&
+                      ctx.tiles[2][y] === "O")
+                  ? "#f2b137"
+                  : "",
             }}
           >
             {ctx.tiles[x][y] !== null ? (
@@ -277,8 +301,15 @@ const GameBoardComponent = () => {
                   alt="x sign green"
                   style={{
                     filter:
-                      ctx.winComb == x &&
-                      "brightness(0) saturate(1) opacity(.8)",
+                      (ctx.winComb === x && ctx.winner === "X") ||
+                      (ctx.winComb === "leftDiagonal" && x === y) ||
+                      (ctx.winComb === "rightDiagonal" && x + y === 2) ||
+                      (ctx.winComb === `vertical${y}` &&
+                        ctx.tiles[0][y] === "X" &&
+                        ctx.tiles[1][y] === "X" &&
+                        ctx.tiles[2][y] === "X")
+                        ? "brightness(0) saturate(1) opacity(.8)"
+                        : "",
                   }}
                 />
               ) : (
@@ -287,8 +318,15 @@ const GameBoardComponent = () => {
                   alt="x sign green"
                   style={{
                     filter:
-                      ctx.winComb == x &&
-                      "brightness(0) saturate(1) opacity(.8)",
+                      (ctx.winComb === x && ctx.winner === "O") ||
+                      (ctx.winComb === "leftDiagonal" && x === y) ||
+                      (ctx.winComb === "rightDiagonal" && x + y === 2) ||
+                      (ctx.winComb === `vertical${y}` &&
+                        ctx.tiles[0][y] === "O" &&
+                        ctx.tiles[1][y] === "O" &&
+                        ctx.tiles[2][y] === "O")
+                        ? "brightness(0) saturate(1) opacity(.8)"
+                        : "",
                   }}
                 />
               )
