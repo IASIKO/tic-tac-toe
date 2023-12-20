@@ -115,13 +115,15 @@ const GameBoardComponent = () => {
     }
   };
 
-  const makeRandomMove = () => {};
+  const makeRandomMove = () => {
+    
+  };
 
-  useEffect(() => {
+  const checkForWinner = (tiles) => {
     const signsArr = ["X", "O"];
 
     signsArr.forEach((sign) => {
-      ctx.tiles.forEach((tile, x) => {
+      tiles.forEach((tile, x) => {
         if (tile.every((memb) => memb == sign)) {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
@@ -136,9 +138,9 @@ const GameBoardComponent = () => {
       });
 
       if (
-        ctx.tiles[0][0] === sign &&
-        ctx.tiles[1][1] == sign &&
-        ctx.tiles[2][2] == sign &&
+        tiles[0][0] === sign &&
+        tiles[1][1] == sign &&
+        tiles[2][2] == sign &&
         sign === "X"
       ) {
         ctx.setScoreX(ctx.scoreX + 1);
@@ -148,9 +150,9 @@ const GameBoardComponent = () => {
       }
 
       if (
-        ctx.tiles[0][0] === sign &&
-        ctx.tiles[1][1] == sign &&
-        ctx.tiles[2][2] == sign &&
+        tiles[0][0] === sign &&
+        tiles[1][1] == sign &&
+        tiles[2][2] == sign &&
         sign === "O"
       ) {
         ctx.setScoreO(ctx.scoreO + 1);
@@ -160,9 +162,9 @@ const GameBoardComponent = () => {
       }
 
       if (
-        ctx.tiles[0][2] === sign &&
-        ctx.tiles[1][1] == sign &&
-        ctx.tiles[2][0] == sign &&
+        tiles[0][2] === sign &&
+        tiles[1][1] == sign &&
+        tiles[2][0] == sign &&
         sign === "X"
       ) {
         ctx.setScoreX(ctx.scoreX + 1);
@@ -172,9 +174,9 @@ const GameBoardComponent = () => {
       }
 
       if (
-        ctx.tiles[0][2] === sign &&
-        ctx.tiles[1][1] == sign &&
-        ctx.tiles[2][0] == sign &&
+        tiles[0][2] === sign &&
+        tiles[1][1] == sign &&
+        tiles[2][0] == sign &&
         sign === "O"
       ) {
         ctx.setScoreO(ctx.scoreO + 1);
@@ -183,11 +185,11 @@ const GameBoardComponent = () => {
         ctx.setWinComb("rightDiagonal");
       }
 
-      for (let i = 0; i < ctx.tiles.length; i++) {
+      for (let i = 0; i < tiles.length; i++) {
         if (
-          ctx.tiles[0][i] === sign &&
-          ctx.tiles[1][i] === sign &&
-          ctx.tiles[2][i] === sign
+          tiles[0][i] === sign &&
+          tiles[1][i] === sign &&
+          tiles[2][i] === sign
         ) {
           ctx.setIsModal(true);
           ctx.setWinner(sign);
@@ -203,9 +205,9 @@ const GameBoardComponent = () => {
 
       let isTilesFull = true;
 
-      for (let i = 0; i < ctx.tiles.length; i++) {
-        for (let j = 0; j < ctx.tiles[i].length; j++) {
-          if (ctx.tiles[i][j] === null) {
+      for (let i = 0; i < tiles.length; i++) {
+        for (let j = 0; j < tiles[i].length; j++) {
+          if (tiles[i][j] === null) {
             isTilesFull = false;
           }
         }
@@ -217,8 +219,12 @@ const GameBoardComponent = () => {
         ctx.setScoreT(ctx.scoreT + 1);
       }
     });
+  };
 
-    if (ctx.enterCpuGame && !ctx.isModal && ctx.playerTurn === "O") {
+  useEffect(() => {
+    checkForWinner(ctx.tiles);
+
+    if (ctx.enterCpuGame) {
       makeRandomMove();
     }
   }, [ctx.tiles]);
