@@ -115,9 +115,7 @@ const GameBoardComponent = () => {
     }
   };
 
-  const makeRandomMove = () => {
-    
-  };
+  const makeRandomMove = () => {};
 
   const checkForWinner = (tiles) => {
     const signsArr = ["X", "O"];
@@ -225,9 +223,14 @@ const GameBoardComponent = () => {
     checkForWinner(ctx.tiles);
 
     if (ctx.enterCpuGame) {
-      makeRandomMove();
+      if (ctx.isX && ctx.playerTurn === "O") {
+        makeRandomMove();
+      }
+      if (!ctx.isX && ctx.playerTurn === "X") {
+        makeRandomMove();
+      }
     }
-  }, [ctx.tiles]);
+  }, [ctx.tiles, ctx.playerTurn]);
 
   return (
     <GameBoard>
