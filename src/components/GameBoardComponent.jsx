@@ -116,43 +116,20 @@ const GameBoardComponent = () => {
   };
 
   const makeRandomMove = () => {
-    if (ctx.tiles[1][1] === null) {
-      ctx.tiles[1][1] = ctx.playerTurn;
-      ctx.setTiles(ctx.tiles);
-      ctx.setPlayerTurn(ctx.playerTurn === "X" ? "O" : "X");
-    }
-    for (let i = 0; i < ctx.tiles.length; i++) {
-      if (
-        ctx.tiles[i][0] === null &&
-        ctx.tiles[i][1] !== null &&
-        ctx.tiles[i][2] !== null
-      ) {
-        ctx.tiles[i][0] = ctx.playerTurn;
-        ctx.setTiles(ctx.tiles);
-        ctx.setPlayerTurn(ctx.playerTurn === "X" ? "O" : "X");
-      }
-      if (
-        ctx.tiles[i][0] !== null &&
-        ctx.tiles[i][1] === null &&
-        ctx.tiles[i][2] !== null
-      ) {
-        ctx.tiles[i][1] = ctx.playerTurn;
-        ctx.setTiles(ctx.tiles);
-        ctx.setPlayerTurn(ctx.playerTurn === "X" ? "O" : "X");
-      }
-      if (
-        ctx.tiles[i][0] !== null &&
-        ctx.tiles[i][1] !== null &&
-        ctx.tiles[i][2] === null
-      ) {
-        ctx.tiles[i][2] = ctx.playerTurn;
-        ctx.setTiles(ctx.tiles);
-        ctx.setPlayerTurn(ctx.playerTurn === "X" ? "O" : "X");
+    while (true) {
+      const randomX = Math.floor(Math.random() * 3);
+      const randomY = Math.floor(Math.random() * 3);
+      if (ctx.tiles[randomX][randomY] === null) {
+        ctx.setTiles((prevTiles) => {
+          const newTiles = [...prevTiles];
+          newTiles[randomX][randomY] = ctx.playerTurn;
+          return newTiles;
+        });
+        ctx.setPlayerTurn("X");
+        break;
       }
     }
   };
-
-  console.log(ctx.playerTurn);
 
   const checkForWinner = (tiles) => {
     const signsArr = ["X", "O"];
