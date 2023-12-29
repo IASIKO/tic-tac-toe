@@ -115,10 +115,18 @@ const GameBoardComponent = () => {
     }
   };
 
-  const makeComputerMoveOnO = () => {
+  const makeRandomMove = () => {
+    const newArr = [...ctx.tiles];
+    if (ctx.tiles[1][1] === null) {
+      newArr[1][1] = ctx.playerTurn;
+      ctx.setPlayerTurn("X");
+      if (ctx.playerTurn === "X") {
+        newArr[1][1] = ctx.playerTurn;
+        ctx.setPlayerTurn("O");
+      }
+    }
+    
   };
-
-  const makeComputerMoveOnX = () => {};
 
   const checkForWinner = (tiles) => {
     const signsArr = ["X", "O"];
@@ -227,10 +235,10 @@ const GameBoardComponent = () => {
 
     if (ctx.enterCpuGame) {
       if (ctx.isX && ctx.playerTurn === "O") {
-        makeComputerMoveOnO();
+        makeRandomMove();
       }
       if (!ctx.isX && ctx.playerTurn === "X") {
-        makeComputerMoveOnX();
+        makeRandomMove();
       }
     }
   }, [ctx.tiles, ctx.playerTurn]);
