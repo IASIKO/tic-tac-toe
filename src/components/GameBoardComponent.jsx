@@ -101,6 +101,7 @@ const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
   const switchPlayerTurn = () => {
+    
     ctx.setPlayerTurn((prevTurn) => (prevTurn === "X" ? "O" : "X"));
   };
 
@@ -133,6 +134,10 @@ const GameBoardComponent = () => {
     if (emptyTiles.length) {
       newArr[randomTile.x][randomTile.y] = ctx.playerTurn;
       ctx.setTiles(newArr);
+    } else {
+      ctx.setIsModal(true);
+      ctx.setWinner("T");
+      ctx.setScoreT(ctx.scoreT + 1);
     }
 
     switchPlayerTurn();

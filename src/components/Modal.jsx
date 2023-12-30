@@ -118,7 +118,6 @@ const Modal = () => {
     ctx.setIsModal(false);
     ctx.setTiles(ctx.defaultArr);
     ctx.setPlayerTurn("X");
-    ctx.setIsX(true);
     ctx.setWinComb(null);
   };
 
