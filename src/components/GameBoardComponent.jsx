@@ -100,6 +100,10 @@ const Score = styled.p`
 const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
+  const switchPlayerTurn = () => {
+    ctx.setPlayerTurn((prevTurn) => (prevTurn === "X" ? "O" : "X"));
+  };
+
   const handleTileClick = (x, y) => {
     if (ctx.tiles[x][y] !== null) {
       return;
@@ -108,24 +112,30 @@ const GameBoardComponent = () => {
     const newArr = [...ctx.tiles];
     newArr[x][y] = ctx.playerTurn;
     ctx.setTiles(newArr);
-    if (ctx.playerTurn === "X") {
-      ctx.setPlayerTurn("O");
-    } else {
-      ctx.setPlayerTurn("X");
-    }
+
+    switchPlayerTurn();
   };
 
   const makeRandomMove = () => {
-    const newArr = [...ctx.tiles];
-    if (ctx.tiles[1][1] === null) {
-      newArr[1][1] = ctx.playerTurn;
-      ctx.setPlayerTurn("X");
-      if (ctx.playerTurn === "X") {
-        newArr[1][1] = ctx.playerTurn;
-        ctx.setPlayerTurn("O");
+    const emptyTiles = [];
+    for (let i = 0; i < ctx.tiles.length; i++) {
+      for (let j = 0; j < ctx.tiles[i].length; j++) {
+        if (ctx.tiles[i][j] === null) {
+          emptyTiles.push({ x: i, y: j });
+        }
       }
     }
-    
+
+    const randomIndex = Math.floor(Math.random() * emptyTiles.length);
+    const randomTile = emptyTiles[randomIndex];
+
+    const newArr = [...ctx.tiles];
+    if (emptyTiles.length) {
+      newArr[randomTile.x][randomTile.y] = ctx.playerTurn;
+      ctx.setTiles(newArr);
+    }
+
+    switchPlayerTurn();
   };
 
   const checkForWinner = (tiles) => {
@@ -222,7 +232,7 @@ const GameBoardComponent = () => {
         }
       }
 
-      if (isTilesFull) {
+      if (isTilesFull && ctx.winner === null) {
         ctx.setIsModal(true);
         ctx.setWinner("T");
         ctx.setScoreT(ctx.scoreT + 1);
