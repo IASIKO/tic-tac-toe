@@ -133,7 +133,8 @@ const GameBoardComponent = () => {
     if (emptyTiles.length) {
       newArr[randomTile.x][randomTile.y] = ctx.playerTurn;
       ctx.setTiles(newArr);
-    } else {
+    }
+    if ((!ctx.isX && emptyTiles.length - 1 === 0) || !emptyTiles.length) {
       ctx.setIsModal(true);
       ctx.setWinner("T");
       ctx.setScoreT(ctx.scoreT + 1);
@@ -244,16 +245,18 @@ const GameBoardComponent = () => {
     });
   };
 
-  console.log("X", ctx.scoreX);
-  console.log("O", ctx.scoreO);
-  console.log("T", ctx.scoreT);
-
   useEffect(() => {
     if (ctx.winComb !== null) {
       return;
     }
-    
+
     checkForWinner(ctx.tiles);
+  }, [ctx.tiles]);
+
+  useEffect(() => {
+    if (ctx.isModal) {
+      return;
+    }
 
     if (ctx.enterCpuGame) {
       if (ctx.isX && ctx.playerTurn === "O") {
@@ -263,7 +266,7 @@ const GameBoardComponent = () => {
         makeRandomMove();
       }
     }
-  }, [ctx.tiles, ctx.playerTurn]);
+  }, [ctx.playerTurn]);
 
   return (
     <GameBoard>
