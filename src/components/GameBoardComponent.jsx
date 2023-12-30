@@ -101,7 +101,6 @@ const GameBoardComponent = () => {
   const ctx = useContext(AppContext);
 
   const switchPlayerTurn = () => {
-    
     ctx.setPlayerTurn((prevTurn) => (prevTurn === "X" ? "O" : "X"));
   };
 
@@ -245,7 +244,15 @@ const GameBoardComponent = () => {
     });
   };
 
+  console.log("X", ctx.scoreX);
+  console.log("O", ctx.scoreO);
+  console.log("T", ctx.scoreT);
+
   useEffect(() => {
+    if (ctx.winComb !== null) {
+      return;
+    }
+    
     checkForWinner(ctx.tiles);
 
     if (ctx.enterCpuGame) {
