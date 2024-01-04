@@ -127,7 +127,7 @@ const GameBoardComponent = () => {
     }
 
     // Check if it's the first move and player hasn't marked the center
-    if (emptyTiles.length === 9) {
+    if (emptyTiles.length === 9 || emptyTiles.length === 8) {
       if (ctx.tiles[1][1] === null) {
         // Player hasn't marked the center, so computer marks the center
         const newArr = [...ctx.tiles];
