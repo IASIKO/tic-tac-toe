@@ -166,15 +166,6 @@ const GameBoardComponent = () => {
     // Check for potential winning moves for the player
     const winningMove = checkForPotentialWinningMove(ctx.tiles, playerSign);
 
-    if (winningMove) {
-      // Player has a potential winning move, block it
-      const newArr = [...ctx.tiles];
-      newArr[winningMove.x][winningMove.y] = computerSign;
-      ctx.setTiles(newArr);
-      switchPlayerTurn();
-      return;
-    }
-
     // For subsequent moves, check for player's 2-in-a-row and block it
     const defensiveMove = checkForDefensiveMove(ctx.tiles, playerSign);
 
@@ -183,6 +174,13 @@ const GameBoardComponent = () => {
       const newArr = [...ctx.tiles];
       newArr[defensiveMove.x][defensiveMove.y] = computerSign;
       ctx.setTiles(newArr);
+    } else if (winningMove) {
+      // Player has a potential winning move, block it
+      const newArr = [...ctx.tiles];
+      newArr[winningMove.x][winningMove.y] = computerSign;
+      ctx.setTiles(newArr);
+      switchPlayerTurn();
+      return;
     } else {
       // No potential winning or defensive move, make a random move
       const randomIndex = Math.floor(Math.random() * emptyTiles.length);
@@ -192,6 +190,15 @@ const GameBoardComponent = () => {
         const newArr = [...ctx.tiles];
         newArr[randomTile.x][randomTile.y] = computerSign;
         ctx.setTiles(newArr);
+      }
+
+      if (
+        (!ctx.isX && emptyTiles.length - 1 === 0) ||
+        (ctx.isX && !emptyTiles.length)
+      ) {
+        ctx.setIsModal(true);
+        ctx.setWinner("T");
+        ctx.setScoreT(ctx.scoreT + 1);
       }
     }
 
