@@ -160,20 +160,6 @@ const GameBoardComponent = () => {
       }
     }
 
-    const potentialLosingMove = checkForPotentialLosingMove(
-      ctx.tiles,
-      ctx.playerTurn
-    );
-
-    if (potentialLosingMove) {
-      // Player has a potential winning move, block it
-      const newArr = [...ctx.tiles];
-      newArr[potentialLosingMove.x][potentialLosingMove.y] = ctx.playerTurn;
-      ctx.setTiles(newArr);
-      switchPlayerTurn();
-      return;
-    }
-
     // For subsequent moves, check for potential winning moves for the player
     const winningMove = checkForPotentialWinningMove(ctx.tiles, ctx.playerTurn);
 
@@ -201,68 +187,6 @@ const GameBoardComponent = () => {
     }
 
     switchPlayerTurn();
-  };
-
-  const checkForPotentialLosingMove = (tiles, sign) => {
-    // Check rows and columns for potential winning moves for the player
-    for (let i = 0; i < tiles.length; i++) {
-      let rowCount = 0;
-      let colCount = 0;
-      let rowEmpty = null;
-      let colEmpty = null;
-
-      for (let j = 0; j < tiles[i].length; j++) {
-        if (tiles[i][j] === sign) {
-          rowCount++;
-        } else if (tiles[i][j] === null) {
-          rowEmpty = { x: i, y: j };
-        }
-
-        if (tiles[j][i] === sign) {
-          colCount++;
-        } else if (tiles[j][i] === null) {
-          colEmpty = { x: j, y: i };
-        }
-      }
-
-      if (rowCount === 2 && rowEmpty) {
-        return rowEmpty;
-      }
-
-      if (colCount === 2 && colEmpty) {
-        return colEmpty;
-      }
-    }
-
-    // Check diagonals for potential winning moves for the player
-    let leftDiagonalCount = 0;
-    let rightDiagonalCount = 0;
-    let leftDiagonalEmpty = null;
-    let rightDiagonalEmpty = null;
-
-    for (let i = 0; i < tiles.length; i++) {
-      if (tiles[i][i] === sign) {
-        leftDiagonalCount++;
-      } else if (tiles[i][i] === null) {
-        leftDiagonalEmpty = { x: i, y: i };
-      }
-
-      if (tiles[i][2 - i] === sign) {
-        rightDiagonalCount++;
-      } else if (tiles[i][2 - i] === null) {
-        rightDiagonalEmpty = { x: i, y: 2 - i };
-      }
-    }
-
-    if (leftDiagonalCount === 2 && leftDiagonalEmpty) {
-      return leftDiagonalEmpty;
-    }
-
-    if (rightDiagonalCount === 2 && rightDiagonalEmpty) {
-      return rightDiagonalEmpty;
-    }
-
-    return null;
   };
 
   const checkForPotentialWinningMove = (tiles, sign) => {
