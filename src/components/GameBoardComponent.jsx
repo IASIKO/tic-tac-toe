@@ -458,7 +458,9 @@ const GameBoardComponent = () => {
 
   useEffect(() => {
     checkForWinner(ctx.tiles);
+  }, [ctx.tiles]);
 
+  useEffect(() => {
     if (ctx.enterCpuGame) {
       if (ctx.isX && ctx.playerTurn === "O") {
         makeRandomMove();
@@ -467,7 +469,7 @@ const GameBoardComponent = () => {
         makeRandomMove();
       }
     }
-  }, [ctx.tiles, ctx.playerTurn]);
+  }, [ctx.playerTurn]);
 
   return (
     <GameBoard>
