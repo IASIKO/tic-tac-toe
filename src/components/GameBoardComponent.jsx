@@ -559,7 +559,7 @@ const GameBoardComponent = () => {
       )}
       <XscoreBox>
         <ScoreBoxComponent>
-          {ctx.enterCpuGame ? "x (you)" : "x (p1)"}
+          {ctx.enterCpuGame ? (ctx.isX ? "x (you)" : "x (cpu)") : "x (p1)"}
         </ScoreBoxComponent>
         <Score>{ctx.scoreX}</Score>
       </XscoreBox>
@@ -569,7 +569,7 @@ const GameBoardComponent = () => {
       </TiesScoreBox>
       <OscoreBox>
         <ScoreBoxComponent>
-          {ctx.enterCpuGame ? "o (cpu)" : "o (p2)"}
+          {ctx.enterCpuGame ? (!ctx.isX ? "x (you)" : "x (cpu)") : "o (p2)"}
         </ScoreBoxComponent>
         <Score>{ctx.scoreO}</Score>
       </OscoreBox>
