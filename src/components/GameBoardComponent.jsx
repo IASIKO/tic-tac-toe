@@ -430,10 +430,6 @@ const GameBoardComponent = () => {
   };
 
   useEffect(() => {
-    if (ctx.winComb !== null) {
-      return;
-    }
-
     checkForWinner(ctx.tiles);
 
     if (ctx.enterCpuGame) {
