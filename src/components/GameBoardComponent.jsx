@@ -217,13 +217,11 @@ const GameBoardComponent = () => {
         ctx.setTiles(newArr);
       }
 
-      if (
-        (!ctx.isX && emptyTiles.length - 1 === 0) ||
-        (ctx.isX && !emptyTiles.length)
-      ) {
+      if (emptyTiles.length === 0) {
         ctx.setIsModal(true);
         ctx.setWinner("T");
         ctx.setScoreT(ctx.scoreT + 1);
+        return;
       }
     }
 
