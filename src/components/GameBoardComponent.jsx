@@ -421,7 +421,7 @@ const GameBoardComponent = () => {
         }
       }
 
-      if (isTilesFull && ctx.winner === null) {
+      if (isTilesFull) {
         ctx.setIsModal(true);
         ctx.setWinner("T");
         ctx.setScoreT(ctx.scoreT + 1);
