@@ -15,6 +15,12 @@ const GameBoard = styled.div`
   gap: 20px;
   grid-template-columns: repeat(3, 140px);
   justify-items: center;
+
+  @media only screen and (max-width: 480px) {
+    width: 300px;
+    grid-gap: 10px;
+    gap: 10px;
+  }
 `;
 
 const PlayerTurnBox = styled.div`
@@ -27,6 +33,10 @@ const PlayerTurnBox = styled.div`
   justify-content: center;
   padding: 14px 0 18px;
   width: 100%;
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
+  }
 `;
 
 const PlayerTurnText = styled.p`
@@ -54,9 +64,14 @@ const MarkBox = styled.div`
   box-shadow: inset 0 -8px 0 #10212a;
   cursor: pointer;
   display: flex;
-  height: 140px;
   width: 140px;
+  height: 140px;
   justify-content: center;
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const Thumb = styled.img`
@@ -72,6 +87,10 @@ const XscoreBox = styled.div`
   border-radius: 15px;
   padding: 12px 0;
   width: 100%;
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
+  }
 `;
 
 const TiesScoreBox = styled.div`
@@ -79,6 +98,10 @@ const TiesScoreBox = styled.div`
   border-radius: 15px;
   padding: 12px 0;
   width: 100%;
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
+  }
 `;
 
 const OscoreBox = styled.div`
@@ -86,6 +109,10 @@ const OscoreBox = styled.div`
   border-radius: 15px;
   padding: 12px 0;
   width: 100%;
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
+  }
 `;
 
 const Score = styled.p`
