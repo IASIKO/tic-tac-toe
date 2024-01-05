@@ -3,6 +3,7 @@ import GameBoardComponent from "./components/GameBoardComponent";
 import Main from "./components/Main";
 import { AppContext } from "./store/context";
 import Modal from "./components/Modal";
+import Attribution from "./components/Attribution";
 
 function App() {
   const ctx = useContext(AppContext);

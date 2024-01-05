@@ -3,6 +3,7 @@ import logo from "../assets/logo.svg";
 import styled from "styled-components";
 import SignBoxComponent from "./UI/SignBoxComponent";
 import { AppContext } from "../store/context";
+import Attribution from "./Attribution";
 
 const ManuBox = styled.div`
   width: 460px;
@@ -92,32 +93,35 @@ const Main = () => {
   const ctx = useContext(AppContext);
 
   return (
-    <ManuBox>
-      <img src={logo} alt="logo" />
-      <PickPlayerBox>
-        <PickPlayerText>pick player 1's mark</PickPlayerText>
-        <PlayerSignBox>
-          <SignBoxComponent />
-        </PlayerSignBox>
-        <RememberText>Remembr: x goes first</RememberText>
-      </PickPlayerBox>
-      <ButtonGameCPU
-        onClick={() => {
-          ctx.setEnterCpuGame(true);
-          ctx.setenterGameBoard(true);
-        }}
-      >
-        NEW GAME (VS CPU)
-      </ButtonGameCPU>
-      <ButtonGamePlayer
-        onClick={() => {
-          ctx.setEnterPlayerGame(true)
-          ctx.setenterGameBoard(true);
-        }}
-      >
-        NEW GAME (VS PLAYER)
-      </ButtonGamePlayer>
-    </ManuBox>
+    <>
+      <ManuBox>
+        <img src={logo} alt="logo" />
+        <PickPlayerBox>
+          <PickPlayerText>pick player 1's mark</PickPlayerText>
+          <PlayerSignBox>
+            <SignBoxComponent />
+          </PlayerSignBox>
+          <RememberText>Remembr: x goes first</RememberText>
+        </PickPlayerBox>
+        <ButtonGameCPU
+          onClick={() => {
+            ctx.setEnterCpuGame(true);
+            ctx.setenterGameBoard(true);
+          }}
+        >
+          NEW GAME (VS CPU)
+        </ButtonGameCPU>
+        <ButtonGamePlayer
+          onClick={() => {
+            ctx.setEnterPlayerGame(true);
+            ctx.setenterGameBoard(true);
+          }}
+        >
+          NEW GAME (VS PLAYER)
+        </ButtonGamePlayer>
+      </ManuBox>
+      <Attribution />
+    </>
   );
 };
 
