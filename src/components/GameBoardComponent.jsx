@@ -17,9 +17,9 @@ const GameBoard = styled.div`
   justify-items: center;
 
   @media only screen and (max-width: 480px) {
-    width: 300px;
     grid-gap: 10px;
     gap: 10px;
+    grid-template-columns: repeat(3, 100px);
   }
 `;
 
