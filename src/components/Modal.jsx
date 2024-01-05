@@ -55,6 +55,10 @@ const GreyButton = styled.button`
     background-color: #dbe8ed;
   }
   transition: all 0.2s;
+
+  @media only screen and (max-width: 480px) {
+    margin: 10px;
+  }
 `;
 
 const YellowButton = styled.button`
@@ -73,6 +77,10 @@ const YellowButton = styled.button`
     background-color: #ffc860;
   }
   transition: all 0.2s;
+
+  @media only screen and (max-width: 480px) {
+    margin: 10px;
+  }
 `;
 
 const ModalResultText = styled.p`
